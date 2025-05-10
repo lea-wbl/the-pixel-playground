@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Afacad_Flux,
+  Averia_Serif_Libre,
+  Geist,
+  Geist_Mono,
+  Poiret_One,
+  Share_Tech,
+  Share_Tech_Mono,
+} from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -7,8 +15,26 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
+
+const california = Averia_Serif_Libre({
+  variable: "--font-california",
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
+
+const outatime = Share_Tech({
+  variable: "--font-outatime",
+  weight: ["400"],
+  subsets: ["latin"],
+});
+
+const goldenState = Afacad_Flux({
+  variable: "--font-golden-state",
+  weight: ["400", "500"],
   subsets: ["latin"],
 });
 
@@ -25,7 +51,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${outatime.variable} ${california.variable} ${goldenState.variable} antialiased`}
       >
         {children}
       </body>
