@@ -1,7 +1,12 @@
+"use client";
+
 // import Image from "next/image";
+import { useState } from "react";
 import { FiPlay, FiSquare } from "react-icons/fi";
 
 export default function Home() {
+  const [playRecord, setPlayRecord] = useState(false);
+
   return (
     <div className="h-screen flex flex-wrap bg-gray-50 mb-80">
       {/* DONUT */}
@@ -52,10 +57,15 @@ export default function Home() {
 
       {/* RECORD PLAYER */}
       <div className="w-80 h-80 bg-green-800 grid place-content-center">
-        <div className="w-50 aspect-[4/3] bg-green-200 rounded border-3 border-gray-900 flex items-start justify-between p-2">
+        <div className="w-50 aspect-[4/3] bg-green-200 rounded border-3 border-gray-900 flex items-start justify-between p-2  record-player-shadow">
           {/* vinyl record */}
           <div className="bg-vinyl w-32 aspect-square bg-gray-500 rounded-full relative sshadow">
-            <div className="w-10 aspect-square bg-transparent rounded-full absolute top-1/2 left-1/2 transform -translate-1/2 border-[1rem] border-red-700 ssshadow animate-sp animation-duration-800">
+            <div
+              className={`w-10 aspect-square bg-transparent rounded-full absolute top-1/2 left-1/2 transform -translate-1/2 border-[1rem] border-red-700 ssshadow ${
+                playRecord && "animate-spin"
+              } animation-duration-800`}
+              style={{ animationDelay: "1s" }}
+            >
               <svg
                 viewBox="0 0 200 200"
                 className="w-9 absolute top-1/2 left-1/2 transform -translate-1/2"
@@ -68,10 +78,10 @@ export default function Home() {
                 </defs>
 
                 <text
-                  font-size="28"
-                  font-weight="bold"
+                  fontSize="28"
+                  fontWeight="bold"
                   fill="black"
-                  text-anchor="middle"
+                  textAnchor="middle"
                 >
                   <textPath href="#circlePath" startOffset="50%">
                     THE PIXEL PLAYGROUND
@@ -85,18 +95,65 @@ export default function Home() {
             {/* tonearm */}
             <div
               id="tonearm"
-              className="bg-neutral-900 w-4 aspect-square rounded-full shadow-md relative transform rotate-45"
-            ></div>
+              className={`relative transform transition-transform duration-1000 ${
+                playRecord && "rotate-45"
+              }`}
+            >
+              <div
+                className={`bg-neutral-700 w-6 aspect-square rounded-full shadow-md relative`}
+              ></div>
+              <div className="bg-neutral-400 h-20 w-[5px] absolute top-1/2 left-1/2 transform -translate-x-1/2 sshadow"></div>
+            </div>
             {/* play buttons */}
             <div className="space-x-2">
-              <button className="text-xs bg-red-600 rounded-full p-1 record-btn-shadow hover:cursor-pointer transition-all">
+              <button
+                className={`text-xs bg-red-600 rounded-full p-1 record-btn-shadow hover:cursor-pointer hover:bg-red-700 transition-all ${
+                  playRecord && "record-btn-shadow-active"
+                }`}
+                onClick={() => setPlayRecord(true)}
+              >
                 <FiPlay />
               </button>
-              <button className="text-xs bg-red-600 rounded-full p-1 record-btn-shadow hover:cursor-pointer transition-all">
+              <button
+                className={`text-xs bg-red-600 rounded-full p-1 record-btn-shadow hover:cursor-pointer hover:bg-red-700 transition-all ${
+                  !playRecord && "record-btn-shadow-active"
+                }`}
+                onClick={() => setPlayRecord(false)}
+              >
                 <FiSquare />
               </button>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* WELCOMING EYE */}
+      <div
+        id="welcoming-eye"
+        className="w-80 h-80 bg-amber-300 grid place-content-center overflow-hidden"
+      >
+        <div className="eye bg-white">
+          <div className="iris">
+            <div className="welcome font-california">WELCOME</div>
+          </div>
+        </div>
+      </div>
+
+      {/* CUBE */}
+      <div className="w-80 h-80 bg-purple-300 grid place-content-center">
+        <div className="m-32 transform transform-3d rotate-x-[-25deg] rotate-y-[-25deg] w-36 h-36">
+          {/* front */}
+          <div className="absolute h-36 w-36 border-2 rounded bg-yellow-500 translate-z-[4.5rem]"></div>
+          {/* right */}
+          <div className="absolute h-36 w-36 border-2 rounded bg-blue-500 translate-x-[4.5rem] rotate-y-90"></div>
+          {/* bottom */}
+          <div className="absolute h-36 w-36 border-2 rounded bg-orange-500 translate-y-[4.5rem] rotate-x-90"></div>
+          {/* top */}
+          <div className="absolute h-36 w-36 border-2 rounded bg-red-500 -translate-y-[4.5rem] rotate-x-90"></div>
+          {/* left */}
+          <div className="absolute h-36 w-36 border-2 rounded bg-green-500 -translate-x-[4.5rem] rotate-y-90"></div>
+          {/* back */}
+          <div className="absolute h-36 w-36 border-2 rounded bg-purple-500 -translate-z-[4.5rem]"></div>
         </div>
       </div>
     </div>
